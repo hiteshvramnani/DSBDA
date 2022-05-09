@@ -1,0 +1,17 @@
+#Start Hadoop Server
+start-all.sh
+
+
+mkdir internet
+# Paste Cyber.java and Sample.txt in internet folder
+
+javac -classpath hadoop-core-1.2.1.jar internet/Cyber.java
+jar -cvf cyber.jar -C internet/ .
+hadoop fs -mkdir /input
+hadoop fs -put sample.txt /input
+hadoop fs -ls /input   #verify if sample.txt is in input
+hadoop jar cyber.jar Cyber /input /output
+
+hadoop fs -ls /output
+
+hadoop fs -cat /output/part-r-00000
